@@ -1,15 +1,15 @@
 variable "key_name" {
-  default = "devops-my-aws-keypair"
+  default = "shyamubuntu"
 }
 
 variable "pvt_key" {
-  default = "/root/.ssh/amit-personal-aws.pem"
+  default = "/root/.ssh/mydevops.pem"
 }
 
 variable "us-east-zones" {
-  default = ["us-east-1a", "us-east-1b"]
+  default = ["us-east-2c"]
 }
 
 variable "sg-id" {
-  default = "sg-00c3c981ea2a2ad80"
+  default = "sg-02d03b519d6f4b569"
 }
