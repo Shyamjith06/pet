@@ -4,7 +4,7 @@ node {
 
      
   stage('Git-Checkout') {
-   git 'https://github.com/Shyamjith06/301-test.git'
+   git 'https://github.com/Shyamjith06/petclinic.git'
   }
     
  def project_path="petclinic"
