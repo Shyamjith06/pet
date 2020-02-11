@@ -7,7 +7,7 @@ node {
    git 'https://github.com/Shyamjith06/301-test.git'
   }
     
- def project_path="01-Jenkins/Code/petclinic"
+ def project_path="petclinic"
  
  dir(project_path) {
     
@@ -35,8 +35,8 @@ sh 'mvn sonar:sonar'
         def server= Artifactory.server 'Artifactory'
                     def uploadSpec= """{
                         "files": [{
-                        "pattern": "/root/.jenkins/workspace/ansible/01-Jenkins/Code/petclinic/target/*.war",
-                        "target": "petclinic"}]
+                        "pattern": "/root/.jenkins/workspace/petclinic-1/petclinic/target/*.war",
+                        "target": "petclinic-1"}]
                     }"""
         server.upload(uploadSpec)
        
@@ -47,7 +47,7 @@ sh 'mvn sonar:sonar'
     def downloadSpec = """{
     "files": [
     {
-      "pattern": "petclinic/*.war",
+      "pattern": "petclinic-1/*.war",
       "target": "/home/mtadminnuvepro/artifacts/"
      
     }
@@ -62,13 +62,14 @@ sh 'mvn sonar:sonar'
   }
  
   stage('Geting Ready For Ansible') {
-  sh label: 'Docker', script: 'cp -rf target/*.war ../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/'
-  sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > ../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/apps/index.html"
+  sh label: 'Docker', script: 'cp -rf target/*.war ../../../Terraform/ansible-deploy/ansible/apps/'
 }  
    
+
+
  }
 
-def project_terra="04-Terraform/03-Ansible-Deploy"
+def project_terra="Terraform/ansible-deploy"
 dir(project_terra) {
    stage('Prod Deployment on AWS'){
    sh label: 'terraform', script: '/bin/terraform  init'
@@ -87,7 +88,7 @@ notify('Job Completed')
 
 def notify(status){
     emailext (
-	to: "amitvashist7@gmail.com",
+	to: "shyamjith.s06@gmail.com",
 	subject: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 	 body: """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 	<p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>""",
