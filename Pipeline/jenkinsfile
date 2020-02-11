@@ -4,7 +4,7 @@ node {
 
      
   stage('Git-Checkout') {
-   git 'https://github.com/Shyamjith06/301-test.git'
+   git 'https://github.com/Shyamjith06/petclinic.git'
   }
     
  def project_path="petclinic"
@@ -65,6 +65,7 @@ sh 'mvn sonar:sonar'
         }
   stage('Geting Ready For Ansible') {
   sh label: 'Docker', script: 'cp -rf target/*.war ../../../Terraform/ansible-deploy/ansible/apps/'
+  sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > ../../../Terraform/ansible-deploy/ansible/apps/index.html"
 }  
    
 
