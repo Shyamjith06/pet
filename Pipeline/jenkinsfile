@@ -50,7 +50,6 @@ notify('Job Completed')
   notify("Error ${err}")
   currentBuild.result = 'FAILURE'
 }
-}
 def notify(status){
     emailext (
 	to: "shyamjith.s06@gmail.com",
