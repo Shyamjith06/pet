@@ -43,5 +43,6 @@ sh 'mvn sonar:sonar'
    sh label: '', script: 'docker-compose up -d --build'
   }
   }
+  }
 
 }
